@@ -1,12 +1,24 @@
+import 'package:todolist/components/tasks/task_details.dart';
 import 'package:todolist/components/tasks/task_master.dart';
 import 'package:todolist/models/task.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:todolist/data/tasks.dart' as data;
 
-class AllTasks extends StatelessWidget {
-  const AllTasks({Key? key, required this.tasks, this.currentTask}) : super(key: key);
+class AllTasks extends StatefulWidget {
+  const AllTasks({Key? key, required this.tasks}) : super(key: key);
 
   final List<Task> tasks;
-  final Task? currentTask;
+  
+
+  @override
+  State<AllTasks> createState() => _AllTasksState();
+
+}
+
+class _AllTasksState extends State<AllTasks> {
+
+  Task? currentTask;
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +28,18 @@ class AllTasks extends StatelessWidget {
         ),
         body: Column(
           children: [
+            currentTask != null ?
+            TaskDetails(task: currentTask!) :
+            Container(),
             Expanded(
-              child: TaskMaster(tasks: tasks, onTapTaskMaster: (currentTask) {
-                print("click depuis all tasks");
-                //afficher la date de la tâche
-                Text(currentTask.createdAt);
-                //DateTime(currentTask.createdAt);
+              child: TaskMaster(tasks: widget.tasks, onTapTaskMaster: (Task task) {
+                setState(() {
+                  currentTask = task;
+                });
+                print(currentTask!.createdAt);
+                // //afficher la date de la tâche
+                // Text(DateFormat('dd-MM-yyyy - kk:mm').format(currentTask!.createdAt));
+                // //DateTime(currentTask.createdAt);
               },),
             ),
           ],

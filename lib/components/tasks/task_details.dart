@@ -5,17 +5,18 @@ import 'package:intl/intl.dart';
 
 
 class TaskDetails extends StatelessWidget {
-  const TaskDetails({ Key? key, required this.task, required this.onTapTaskDetails}) : super(key: key);
+  const TaskDetails({ Key? key, required this.task}) : super(key: key);
 
   final Task task;
-  final Function onTapTaskDetails;
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: () {
-        print('clicked on task');
-      },
+    return Column(
+      children: [
+       const Text("task details")
+
+       // mettre le created at et le statut de la task
+      ],
     );
   }
 
